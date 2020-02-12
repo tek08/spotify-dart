@@ -16,6 +16,15 @@ class Users extends EndpointPaging {
     return User.fromJson(map);
   }
 
+  Future<void> seekToPosition() async {
+    await _api._put('v1/me/player/seek?position_ms=3000', '');
+  }
+
+  Future<void> changeTrack() async {
+    String body = '{"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"]}';
+    await _api._put('v1/me/player/play', body);
+  }
+
   Future<Player> currentlyPlaying() async {
     var jsonString = await _api._get('v1/me/player/currently-playing');
 
