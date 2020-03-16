@@ -1,5 +1,7 @@
 // Copyright (c) 2017, chances. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
+import 'dart:convert';
+import 'dart:developer' as developer;
 
 part of spotify;
 
@@ -16,13 +18,15 @@ class Users extends EndpointPaging {
     return User.fromJson(map);
   }
 
-  Future<void> seekToPosition() async {
-    await _api._put('v1/me/player/seek?position_ms=3000', '');
+  Future<void> seekToPosition(int positionMillis) {
+    _api._put('v1/me/player/seek?position_ms=$positionMillis', '');
   }
 
-  Future<void> changeTrack() async {
-    String body = '{"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"]}';
-    await _api._put('v1/me/player/play', body);
+  Future<void> changeTrackAndSeekToPosition(String trackUri, int positionMillis) async {
+    return _api._put('v1/me/player/play', json.encode({
+      "uris": [trackUri],
+      "position_ms": positionMillis
+    }));
   }
 
   Future<Player> currentlyPlaying() async {

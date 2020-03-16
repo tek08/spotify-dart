@@ -28,7 +28,9 @@ abstract class SpotifyApiBase {
 
   Playlists get playlists => _playlists;
 
-  Users get users => _users;
+  Users get users {
+    return _users;
+  }
 
   Search get search => _search;
 
