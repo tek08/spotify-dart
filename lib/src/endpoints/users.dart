@@ -29,6 +29,10 @@ class Users extends EndpointPaging {
     }));
   }
 
+  Future<void> stopPlayback() async {
+    return _api._put('v1/me/player/pause', '');
+  }
+
   Future<Player> currentlyPlaying() async {
     var jsonString = await _api._get('v1/me/player/currently-playing');
 
