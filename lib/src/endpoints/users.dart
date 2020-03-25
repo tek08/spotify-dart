@@ -22,6 +22,10 @@ class Users extends EndpointPaging {
     _api._put('v1/me/player/seek?position_ms=$positionMillis', '');
   }
 
+  Future<String> activeDevices() {
+    return _api._get('v1/me/player/devices');
+  }
+
   Future<void> changeTrackAndSeekToPosition(String trackUri, int positionMillis) async {
     return _api._put('v1/me/player/play', json.encode({
       "uris": [trackUri],
